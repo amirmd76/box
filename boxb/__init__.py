@@ -4,17 +4,16 @@ EMPTY_BBOX = (_MAX_COORDS, _MAX_COORDS, -_MAX_COORDS, -_MAX_COORDS)
 
 
 class BBox(object):
-    arr = []
-
     def __init__(self, arr=None):
         if not arr:
-            arr = EMPTY_BBOX
+            arr = list(EMPTY_BBOX)
         if not isinstance(arr, list) and not isinstance(arr, tuple):
             raise TypeError("invalid coordinates")
         if len(arr) != 4:
             raise ValueError("invalid coordinates")
         if arr[0] > arr[2] or arr[1] > arr[3]:
-            arr = EMPTY_BBOX
+            arr = list(EMPTY_BBOX)
+        self.arr = []
         for obj in arr:
             item = float(obj)
             self.arr.append(item)
