@@ -3,6 +3,9 @@ from .consts import EMPTY_BBOX
 
 class BBox(object):
     def __init__(self, arr=None):
+        if isinstance(arr, BBox):
+            self.arr = arr.arr.copy()
+            return
         if not arr:
             arr = list(EMPTY_BBOX)
         if not isinstance(arr, list) and not isinstance(arr, tuple):
