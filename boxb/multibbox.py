@@ -23,7 +23,9 @@ class MultiBBox(object):
         res = [other]
         for bbox in self.arr:
             res += bbox.subtract(other)
-        return MultiBBox(res)
+        mb = MultiBBox()
+        mb.arr = res
+        return mb
 
     def __sub__(self, other):
         if isinstance(other, MultiBBox):
@@ -39,7 +41,9 @@ class MultiBBox(object):
         res = []
         for bbox in self.arr:
             res += bbox.subtract(other)
-        return MultiBBox(res)
+        mb = MultiBBox()
+        mb.arr = res
+        return mb
 
     def add_bbox(self, other):
         self.arr = self.__add__(other).arr
@@ -63,6 +67,13 @@ class MultiBBox(object):
             for bbox in arr:
                 if not isinstance(bbox, BBox):
                     raise TypeError("Bounding boxes should be of type BBox")
+                self.add_bbox(bbox)
+
+    def empty(self):
+        for bbox in self.arr:
+            if not bbox.empty():
+                return False
+        return True
 
     def to_json(self):
         return {"type": "MultiBBox", "coords": [list(bbox.arr) for bbox in self.arr]}
@@ -75,3 +86,11 @@ class MultiBBox(object):
         for coords in obj["coords"]:
             res.append(BBox(coords))
         return MultiBBox(res)
+
+    def __str__(self):
+        return "MultiBBox([{}])".format(", ".join([bbox.__str__() for bbox in self.arr]))
+
+    def equals(self, other):
+        if not isinstance(other, MultiBBox):
+            raise TypeError("invalid MultiBBox")
+        return (self - other).empty() and (other - self).empty()

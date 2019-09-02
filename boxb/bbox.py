@@ -75,3 +75,11 @@ class BBox(object):
         if not isinstance(obj, dict) or obj.get("type") != "BBox" or not obj.get("coords"):
             raise ValueError("Invalid bbox json")
         return BBox(obj["coords"])
+
+    def __str__(self):
+        return "BBox({})".format(self.arr)
+
+    def equals(self, other):
+        if not isinstance(other, BBox):
+            raise TypeError("invalid bbox")
+        return not self.subtract(other) and not other.subtract(self)
