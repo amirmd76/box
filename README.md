@@ -70,7 +70,9 @@ BBox Methods:
 BBox Properties:
 - `arr`: List of coordinates (of length 4)
 
+
 `boxb.MultiBBox`: An object representing multiple non-intersecting bounding boxes
+
 MultiBBox Methods:
 - `__init__(arr=None)`: Construct from None (empty), list or tuple of BBoxes, MultiBBox or a single BBox and transforms them into non-intersecting BBoxes
 - `clone()`: Returns a replica of the MultiBBox
