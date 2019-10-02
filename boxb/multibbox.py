@@ -7,7 +7,7 @@ class MultiBBox(object):
         res = []
         for bbox in self.arr:
             res.append(bbox.clone())
-        return res
+        return MultiBBox(res)
 
     def __add__(self, other):
         if isinstance(other, MultiBBox):

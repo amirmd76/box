@@ -4,7 +4,7 @@ readme = "Bounding Boxes"
 
 setup(
     name='boxb',
-    version='1.1.0',
+    version='1.1.1',
     description='Utilities for 2D bounding boxes',
     long_description=readme,
     author='AmirMohammad Dehghan',
